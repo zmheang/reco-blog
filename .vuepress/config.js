@@ -2,7 +2,7 @@ module.exports = {
   "title": "UTXO",
   "description": "投身区块链，寻找中本聪",
   "dest": "public",
-  base: '/new_blog/',
+  base: '/reco-blog/',
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],
@@ -228,7 +228,7 @@ module.exports = {
     mode: "dark",
     // 密钥
     keyPage: {
-      keys: ['8E2C54C6C3336C226D050F85FD0DB6C3'], // 1.3.0 版本后需要设置为密文 32位的 md5 加密密文
+      keys: ['4178F7AE2F746A46FA885D01962F756A'], // 1.3.0 版本后需要设置为密文 32位的 md5 加密密文
     }
   },
   "markdown": {
