@@ -80,12 +80,6 @@ module.exports = {
             artist: 'Plastic / Fallin` Dild',
             url: 'https://assets.smallsunnyfox.com/music/2.mp3',
             cover: 'https://assets.smallsunnyfox.com/music/2.jpg'
-          },
-          {
-            name: '用胳膊当枕头',
-            artist: '최낙타',
-            url: 'https://assets.smallsunnyfox.com/music/3.mp3',
-            cover: 'https://assets.smallsunnyfox.com/music/3.jpg'
           }
         ]
       }
@@ -130,10 +124,10 @@ module.exports = {
         ]
       },
       { text: '时间轴', link: '/timeline/', icon: 'reco-date' },
-      //{ text: '关于', link: '/about/', icon: 'reco-account' },
+      { text: '关于', link: '/about/', icon: 'reco-account' },
       {
         text: '仓库', items: [
-          { text: 'Github', link: 'https://github.com/qianduanxinlv/vuepress_blog' },
+          { text: 'Github', link: 'https://github.com/xiangzhengfeng/reco-blog' },
           { text: '码云', link: 'https://gitee.com/qianduanxinlv/vuepress_blog' },
         ], icon: 'reco-github'
       },
@@ -219,7 +213,7 @@ module.exports = {
       ]
     },
     // 最后更新时间
-    lastUpdated: 'Last Updated',
+    //lastUpdated: 'Last Updated',
     // 作者
     author: '我不是中本聪',
     authorAvatar: '/head.jpg',

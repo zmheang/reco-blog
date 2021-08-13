@@ -14,9 +14,9 @@ export default {
   },
   mounted() {
     //import('./lib-that-access-window-on-import').then(module => {
-      setInterval(()=>{
-        this.count++
-      }, 1000)
+    setInterval(() => {
+      this.count++
+    }, 1000)
     //})
   }
 }
