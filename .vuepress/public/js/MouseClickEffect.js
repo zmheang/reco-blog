@@ -1,4 +1,5 @@
 var a_idx = 0;
+var global = window
 
 function getRandom(max, min) {
     return Math.floor(Math.random() * (max - min + 1) + min);

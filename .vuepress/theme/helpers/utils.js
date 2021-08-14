@@ -174,7 +174,7 @@ export function resolveMatchingConfig (regularPath, config) {
 }
 
 export function formatDate (time, fmt = 'yyyy-MM-dd hh:mm:ss') {
-  time = time.replace(/-/g, '/')
+  //time = time.replace(/-/g, '/')
   const date = new Date(time)
   if (/(y+)/.test(fmt)) {
     fmt = fmt.replace(RegExp.$1, date.getFullYear() + '').substr(4 - RegExp.$1.length)

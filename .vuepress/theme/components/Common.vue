@@ -2,7 +2,7 @@
   <div class="theme-container" :class="pageClasses">
     <div v-if="!absoluteEncryption">
       <transition name="fade">
-        <LoadingPage2 v-show="firstLoad" class="loading-wrapper"/>
+        <LoadingPage v-show="firstLoad" class="loading-wrapper"/>
       </transition>
 
       <transition name="fade">
@@ -53,11 +53,11 @@ import Navbar from '@theme/components/Navbar'
 import Sidebar from '@theme/components/Sidebar'
 import PersonalInfo from '@theme/components/PersonalInfo'
 import Password from '@theme/components/Password'
-import LoadingPage2 from '@theme/components/LoadingPage'
+import LoadingPage from '@theme/components/LoadingPage'
 import { setTimeout } from 'timers'
 
 export default defineComponent({
-  components: { Sidebar, Navbar, Password, PersonalInfo, LoadingPage2 },
+  components: { Sidebar, Navbar, Password, PersonalInfo, LoadingPage },
 
   props: {
     sidebar: {

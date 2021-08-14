@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import { getTableDataList } from "../theme/api/fetch"
+import { getTableDataList } from "../api/fetch"
 export default {
   data() {
     return {

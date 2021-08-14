@@ -124,6 +124,7 @@ module.exports = {
         ]
       },
       { text: '时间轴', link: '/timeline/', icon: 'reco-date' },
+      { text: '留言板', link: '/guestbook/', icon: 'reco-suggestion' },
       { text: '关于', link: '/about/', icon: 'reco-account' },
       {
         text: '仓库', items: [
