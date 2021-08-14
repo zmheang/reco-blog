@@ -8,7 +8,7 @@
 
     <div class="guestbook-box" id="guest-box">
       <div>当前留言板基于EOSIO区块链，使用kylin网络部署智能合约。</div>
-      <div>该留言板为去中心化的DAPP，用户可以随意添加、修改、删除各个留言。</div>
+      <div>该留言板为DAPP即去中心化应用，用户可以随意添加、修改、删除各个留言。</div>
       <div>所有留言均可在<a href="https://kylin.eosq.app/account/yijiaxunkeji" target="_blank">kylin网络</a>查看到，记录不可篡改和伪造，请谨慎留言。</div>
       <div>kylin测试网区块链浏览器：
         <a href="https://kylin.eosq.app/account/yijiaxunkeji" target="_blank">区块浏览器地址1</a>
@@ -25,10 +25,11 @@
         </div>
       </div>
       <textarea type="text" placeholder="请输入留言内容" maxlength="100" v-model="content" />
+      <div class="tx"><a :href="`https://kylin.eosq.app/tx/${tx}`" target="_blank">{{ tx ? `交易哈希: ${tx}` : "" }}</a></div>
       <div>
         留言
       </div>
-      <div class="content" v-for="(item, index) in list" :key="index">
+      <div class="content" v-for="(item, index) in list" :key="index" :style="{ marginTop: index === 0 ? '20px' : 0 }">
         <img src="../public/head.jpg" alt="">
         <div class="body">
           <div class="time">{{item.name}}&emsp;{{item.time}}</div>
@@ -55,10 +56,11 @@ export default {
       timeBase: 1628870400, // 2021-08-14 00:00:00 秒数
       next_key: "",
       list: [],
-      more: true,
+      more: false,
       pageSize: 10,
       loading: false,
-      top: 0
+      top: 0,
+      tx: ""
     }
   },
   created() {
@@ -104,7 +106,8 @@ export default {
       }
       const timeDiff = getTimeNum(new Date()) - this.timeBase * 1000
       const content = `${this.name ? this.name + "|" : ""}${parseInt(timeDiff / 1000)}|${this.content}`
-      add(content).then(() => {
+      add(content).then((res) => {
+        this.tx = res.transaction_id
         this.getAllList()
         this.name = ""
         this.content = ""
@@ -177,108 +180,114 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $accentColor;
-      color: var(--background-color);
+      background: transparent;
+      color: var(--text-color);
+      box-shadow: var(--box-shadow-hover);
       cursor: pointer;
       overflow: hidden;
       -webkit-transition: all 0.15s ease-in;
       transition: all 0.15s ease-in;
       position: relative;
     }
-  }
 
-  .btn:before {
-    content: ' ';
-    position: absolute;
-    background: #fff;
-    width: 25px;
-    height: 50px;
-    top: 0;
-    left: -80px;
-    opacity: 0.3;
-    -webkit-transition: all 0.25s ease-out;
-    transition: all 0.25s ease-out;
-    -webkit-transform: skewX(-25deg);
-    transform: skewX(-25deg);
-  }
+    .btn:before {
+      content: ' ';
+      position: absolute;
+      background: #fff;
+      width: 25px;
+      height: 50px;
+      top: 0;
+      left: -80px;
+      opacity: 0.3;
+      -webkit-transition: all 0.25s ease-out;
+      transition: all 0.25s ease-out;
+      -webkit-transform: skewX(-25deg);
+      transform: skewX(-25deg);
+    }
 
-  .btn:hover:before {
-    width: 45px;
-    left: 150px;
-  }
-}
-
-textarea {
-  width: calc(100% - 20px);
-  height: 80px;
-  margin-bottom: 20px;
-}
-
-input, textarea {
-  background: transparent;
-  border: 1px solid var(--text-color);
-  border-radius: 4px;
-  color: $accentColor;
-  padding: 10px;
-  line-height: 20px;
-  outline: none;
-  resize: none;
-}
-
-.content {
-  border-top: 1px solid rgba(0, 0, 0, 0.5);
-  display: flex;
-  padding: 15px;
-
-  &:hover {
-    box-shadow: var(--box-shadow-hover);
-  }
-
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 20px;
-  }
-
-  .body {
-    width: calc(100% - 130px);
-  }
-
-  .operate {
-    width: 70px;
-    height: 20px;
-    line-height: 20px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 0.8em;
-    box-shadow: var(--box-shadow);
-
-    &:hover {
-      box-shadow: var(--box-shadow-hover);
-      color: $accentColor;
+    .btn:hover:before {
+      width: 45px;
+      left: 150px;
     }
   }
-}
 
-.time {
-  font-size: 0.8em;
-  margin: 10px 0;
-}
+  textarea {
+    width: calc(100% - 20px);
+    height: 80px;
+    margin-bottom: 10px;
+  }
 
-.value {
-  margin-bottom: 10px;
-}
+  .tx{
+    margin-bottom: 20px;
+    min-height 20px
+  }
 
-.more {
-  margin: 10px;
-  text-align: center;
+  input, textarea {
+    background: transparent;
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    color: $accentColor;
+    padding: 10px;
+    line-height: 20px;
+    outline: none;
+    resize: none;
+  }
 
-  span {
-    cursor: pointer;
-
+  .content {
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    display: flex;
+    margin-bottom: 0;
+    padding: 15px;
     &:hover {
-      color: $accentColor;
+      box-shadow: var(--box-shadow-hover);
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+
+    .body {
+      width: calc(100% - 150px);
+      margin-right 10px
+    }
+
+    .operate {
+      width: 70px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.8em;
+      box-shadow: var(--box-shadow);
+
+      &:hover {
+        box-shadow: var(--box-shadow-hover);
+        color: $accentColor;
+      }
+    }
+  }
+
+  .time {
+    font-size: 0.8em;
+    margin: 10px 0;
+  }
+
+  .value {
+  }
+
+  .more {
+    margin: 10px;
+    text-align: center;
+
+    span {
+      cursor: pointer;
+
+      &:hover {
+        color: $accentColor;
+      }
     }
   }
 }

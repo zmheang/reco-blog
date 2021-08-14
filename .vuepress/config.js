@@ -76,10 +76,10 @@ module.exports = {
           // },
           // 网络文件示例
           {
-            name: '강남역 4번 출구',
-            artist: 'Plastic / Fallin` Dild',
-            url: 'https://assets.smallsunnyfox.com/music/2.mp3',
-            cover: 'https://assets.smallsunnyfox.com/music/2.jpg'
+            name: '我的梦',
+            artist: '张靓颖',
+            url: './dream.mp3',
+            cover: 'https://imgessl.kugou.com/stdmusic/20151126/20151126110742332252.jpg'
           }
         ]
       }
@@ -222,9 +222,9 @@ module.exports = {
     startYear: '2017',
     mode: "dark",
     // 密钥
-    keyPage: {
+    /* keyPage: {
       keys: ['4178F7AE2F746A46FA885D01962F756A'], // 1.3.0 版本后需要设置为密文 32位的 md5 加密密文
-    }
+    } */
   },
   "markdown": {
     "lineNumbers": true

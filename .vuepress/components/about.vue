@@ -6,7 +6,6 @@
   </div>
 </template>
 <script>
-import { getTableDataList } from "../theme/api/fetch"
 export default {
   data() {
     return {
@@ -18,8 +17,6 @@ export default {
     setInterval(() => {
       this.count++
     }, 1000)
-    console.log(getTableDataList)
-    getTableDataList()
     //})
   }
 }

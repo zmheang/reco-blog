@@ -9,7 +9,6 @@ tags:
  - Uniswap
 ---
 
-这是简介
 <!-- more -->
 
 [UniswapV2Pair](https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/UniswapV2Pair.sol)是一个继承了 [UniswapV2ERC20](https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/UniswapV2ERC20.sol) 合约和[IUniswapV2Pair](https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/interfaces/IUniswapV2Pair.sol)接口的智能合约，该合约是交易对合约，在其父合约UniswapV2ERC20的基础上增加了资产交易及流动性供给等功能。

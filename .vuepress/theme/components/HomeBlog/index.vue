@@ -66,6 +66,8 @@ import { ModuleTransition, RecoIcon } from '@vuepress-reco/core/lib/components'
 import PersonalInfo from '@theme/components/PersonalInfo'
 import { getOneColor } from '@theme/helpers/other'
 import About from "@theme/components/About"
+import { add } from "@theme/api/fetch"
+import { getTimeNum } from "@theme/helpers/utils"
 
 export default defineComponent({
   components: { NoteAbstract, TagList, FriendLink, ModuleTransition, PersonalInfo, RecoIcon, About },
@@ -119,9 +121,18 @@ export default defineComponent({
     this.recoShow = true
     this.setHomeBg()
     new WOW().init();
+    this.addGuest()
     //this._setPage(this._getStoragePage())
   },
   methods: {
+    addGuest() {
+      if (localStorage.getItem("user")) return
+      const timeDiff = getTimeNum(new Date()) - 1628870400 * 1000
+      const content = `我不是中本聪|${parseInt(timeDiff / 1000)}|欢迎大佬来到我的博客站，你可以在此留下你想发布的内容。`
+      add(content).then(() => {
+        localStorage.setItem("user", "true")
+      })
+    },
     paginationChange(page) {
       setTimeout(() => {
         window.scrollTo(0, this.heroHeight)
@@ -131,10 +142,11 @@ export default defineComponent({
       this.$router.push({ path: tagInfo.path })
     },
     setHomeBg: () => {
+      var isMoblie = /Android|webOS|iPhone|iPod|BlackBerry/i.test(window.navigator.userAgent)
       var canvas = document.getElementById('canvas-home-bg')
       if (!canvas) return
       var ctx = canvas.getContext('2d'),
-        w = canvas.width = window.innerWidth / 1.5,
+        w = canvas.width = isMoblie ? window.innerWidth / 1.1 : window.innerWidth / 1.4,
         h = canvas.height = window.innerHeight,
 
         hue = 217,
@@ -147,6 +159,7 @@ export default defineComponent({
         ctx2 = canvas2.getContext('2d');
       canvas2.width = 100;
       canvas2.height = 100;
+      var isMoblie = /Android|webOS|iPhone|iPod|BlackBerry/i.test(window.navigator.userAgent)
       var half = canvas2.width / 2,
         gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
       gradient2.addColorStop(0.025, '#fff');
@@ -337,7 +350,7 @@ export default defineComponent({
               line-height: 1.6rem;
               border-radius: $borderRadius;
               background: #eee;
-              box-shadow: var( --box-shadow );
+              box-shadow: var(--box-shadow);
               font-size: 13px;
               color: #fff;
             }
@@ -440,54 +453,58 @@ export default defineComponent({
   }
 
   .leaderboard ol li mark {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: 18px 10px 18px 50px;
-  margin: 0;
-  background: none;
-  color: #fff;
-}
-.leaderboard ol li mark::before, .leaderboard ol li mark::after {
-  content: '';
-  position: absolute;
-  z-index: 1;
-  bottom: -11px;
-  left: -9px;
-  border-top: 10px solid #c24448;
-  border-left: 10px solid transparent;
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
-  opacity: 0;
-}
-.leaderboard ol li mark::after {
-  left: auto;
-  right: -9px;
-  border-left: none;
-  border-right: 10px solid transparent;
-}
-.leaderboard ol li small {
-  position: relative;
-  z-index: 2;
-  display: block;
-  text-align: right;
-}
-.leaderboard ol li::after {
-  content: '';
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #fa6855;
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.08);
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
-  opacity: 0;
-}
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 18px 10px 18px 50px;
+    margin: 0;
+    background: none;
+    color: #fff;
+  }
+
+  .leaderboard ol li mark::before, .leaderboard ol li mark::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    bottom: -11px;
+    left: -9px;
+    border-top: 10px solid #c24448;
+    border-left: 10px solid transparent;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    opacity: 0;
+  }
+
+  .leaderboard ol li mark::after {
+    left: auto;
+    right: -9px;
+    border-left: none;
+    border-right: 10px solid transparent;
+  }
+
+  .leaderboard ol li small {
+    position: relative;
+    z-index: 2;
+    display: block;
+    text-align: right;
+  }
+
+  .leaderboard ol li::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fa6855;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.08);
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+  }
 }
 </style>
