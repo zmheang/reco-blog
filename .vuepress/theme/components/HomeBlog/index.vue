@@ -67,7 +67,7 @@ import PersonalInfo from '@theme/components/PersonalInfo'
 import { getOneColor } from '@theme/helpers/other'
 import About from "@theme/components/About"
 import { add } from "@theme/api/fetch"
-import { getTimeNum } from "@theme/helpers/utils"
+import { getTimeNum, checkIsMobile } from "@theme/helpers/utils"
 
 export default defineComponent({
   components: { NoteAbstract, TagList, FriendLink, ModuleTransition, PersonalInfo, RecoIcon, About },
@@ -142,11 +142,11 @@ export default defineComponent({
       this.$router.push({ path: tagInfo.path })
     },
     setHomeBg: () => {
-      var isMoblie = /Android|webOS|iPhone|iPod|BlackBerry/i.test(window.navigator.userAgent)
+      var isMoblie = checkIsMobile()
       var canvas = document.getElementById('canvas-home-bg')
       if (!canvas) return
       var ctx = canvas.getContext('2d'),
-        w = canvas.width = isMoblie ? window.innerWidth / 1.1 : window.innerWidth / 1.4,
+        w = canvas.width = isMoblie ? window.innerWidth : window.innerWidth / 1.4,
         h = canvas.height = window.innerHeight,
 
         hue = 217,

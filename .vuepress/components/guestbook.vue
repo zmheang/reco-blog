@@ -30,13 +30,16 @@
         留言
       </div>
       <div class="content" v-for="(item, index) in list" :key="index" :style="{ marginTop: index === 0 ? '20px' : 0 }">
-        <img src="../public/head.jpg" alt="">
+        <img src="../public/head.jpg" alt="" v-if="!isMobile">
         <div class="body">
-          <div class="time">{{item.name}}&emsp;{{item.time}}</div>
+          <div class="time">{{item.name}}<span v-show="!isMobile">&emsp;{{item.time}}</span></div>
+          <div class="time" v-show="isMobile">{{item.time}}</div>
           <div class="value">{{item.value || "-"}}</div>
+          <div class="operate" data-type="operation" v-if="isMobile" :style="{color: item.isDone ? 'red' : '', marginTop: '10px' }" @click="item.isDone ? removeGuest(item.id) : doneGuest(item.id)">{{ item.isDone ? "删除" : "标记已阅" }}</div>
         </div>
-        <div class="operate" data-type="operation" :style="{color: item.isDone ? 'red' : '' }" @click="item.isDone ? removeGuest(item.id) : doneGuest(item.id)">{{ item.isDone ? "删除" : "标记已阅" }}</div>
+        <div class="operate" data-type="operation" v-if="!isMobile" :style="{color: item.isDone ? 'red' : '' }" @click="item.isDone ? removeGuest(item.id) : doneGuest(item.id)">{{ item.isDone ? "删除" : "标记已阅" }}</div>
       </div>
+
       <div class="more">
         <span @click="getNextList" data-type="next">{{ more && list.length !== 0 ? "下一页" : "你都快刨到我家祖坟啦，已经没有留言了哦！"}}</span>
       </div>
@@ -44,8 +47,8 @@
   </div>
 </template>
 <script>
-import { getTableDataList, add, done, remove } from "../theme/api/fetch"
-import { getTimeNum } from "../theme/helpers/utils"
+import { getTableDataList, add, done, remove } from "@theme/api/fetch"
+import { getTimeNum, checkIsMobile } from "@theme/helpers/utils"
 import LoadingPage from '@theme/components/LoadingPage'
 export default {
   components: { LoadingPage },
@@ -60,11 +63,13 @@ export default {
       pageSize: 10,
       loading: false,
       top: 0,
-      tx: ""
+      tx: "",
+      isMobile: false
     }
   },
   created() {
     this.getList(this.next_key, this.pageSize)
+    this.isMobile = checkIsMobile()
   },
   mounted() {
     window.addEventListener("click", (e) => {
@@ -177,6 +182,7 @@ export default {
     .btn {
       border-radius: 4px;
       padding: 10px 20px;
+      width 50px
       display: flex;
       align-items: center;
       justify-content: center;
@@ -217,9 +223,9 @@ export default {
     margin-bottom: 10px;
   }
 
-  .tx{
+  .tx {
     margin-bottom: 20px;
-    min-height 20px
+    min-height: 20px;
   }
 
   input, textarea {
@@ -237,7 +243,8 @@ export default {
     border-top: 1px solid rgba(0, 0, 0, 0.5);
     display: flex;
     margin-bottom: 0;
-    padding: 15px;
+    padding: 15px 10px;
+
     &:hover {
       box-shadow: var(--box-shadow-hover);
     }
@@ -250,8 +257,8 @@ export default {
     }
 
     .body {
-      width: calc(100% - 150px);
-      margin-right 10px
+      flex: 1;
+      margin-right: 10px;
     }
 
     .operate {
